@@ -33,7 +33,9 @@ class Screen
     showing_times.map {|showing_time| Screen.new(showing_time)}
   end
 
-  # return movie screen with the lowest remaining tickets, ie. most popular
+  # For a given film, search in the screenings table for objects that match provided parameter
+  # Result returns an array, sort the array by lowest 'remaining_tickets'
+  # Return the first object in the array
   def Screen.popular(film)
     sql = "SELECT * FROM screenings
            WHERE film_id = $1"
@@ -43,8 +45,9 @@ class Screen
     return result.min_by {|time| time.remaining_tickets}
   end
 
-  #
-  # return an array of the films in a screening sort by lowest remaining tickets
+  # For a given film, search in the screenings table for objects that match provided parameter
+  # Result returns an array, sort the array by lowest 'remaining_tickets'
+  # Print result
   def Screen.sort_by_lowest_remaining_tickets(film)
     sql = "SELECT * FROM screenings
            WHERE film_id = $1"
