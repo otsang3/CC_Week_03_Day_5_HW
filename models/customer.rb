@@ -60,9 +60,9 @@ class Customer
   end
 
   # find a customer for given customer id
-  def find
+  def Customer.find(id)
     sql = "SELECT * FROM customers WHERE id = $1"
-    values = [@id]
+    values = [id.to_i]
     customer = SqlRunner.run(sql, values).first
     return customer
   end
