@@ -43,4 +43,15 @@ class Screen
     return result.min_by {|time| time.remaining_tickets}
   end
 
+  #
+  # return an array of the films in a screening sort by lowest remaining tickets
+  def Screen.sort_by_lowest_remaining_tickets(film)
+    sql = "SELECT * FROM screenings
+           WHERE film_id = $1"
+    values = [film.id]
+    films = SqlRunner.run(sql, values)
+    result = films.map {|film_hash| Screen.new(film_hash)}
+    return result.sort_by {|time| time.remaining_tickets}
+  end
+
 end
